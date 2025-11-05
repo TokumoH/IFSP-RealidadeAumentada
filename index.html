@@ -1,24 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Protótipo WebXR Final</title>
-    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-    <!-- Carregamos nosso script de interação -->
+    <title>Protótipo WebXR (Moderno)</title>
+    <!-- Carrega a versão mais recente e estável do A-Frame -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <!-- Carrega nosso script de lógica -->
     <script src="main.js" defer></script>
   </head>
   <body>
-    <!-- Adicionamos nosso componente 'tap-to-place' à cena -->
-    <a-scene webxr="optionalFeatures: hit-test;" ar-hit-test="target: #alvo;" tap-to-place>
-      <!-- O Asset Manager pré-carrega nosso modelo 3D -->
+    <!-- A CENA -->
+    <!-- xr-mode-ui: Ativa o botão oficial de "Entrar em AR" -->
+    <!-- renderer="colorManagement: true": Melhora a qualidade das cores -->
+    <a-scene 
+      webxr="requiredFeatures: hit-test;" 
+      xr-mode-ui="enterARButton: #enter-ar-button" 
+      renderer="colorManagement: true"
+      place-on-select>
+
+      <!-- ASSETS -->
+      <!-- Pré-carregamos o modelo para performance -->
       <a-assets>
         <a-asset-item id="seta-asset" src="assets/seta.glb"></a-asset-item>
       </a-assets>
 
-      <a-camera position="0 1.2 0"></a-camera>
-      <a-light type="ambient" color="#FFF"></a-light>
-      <a-entity id="alvo" scale="0.2 0.2 0.2">
-        <a-ring color="teal" rotation="-90 0 0"></a-ring>
+      <!-- LUZES -->
+      <!-- Uma boa iluminação é crucial para o realismo -->
+      <a-light type="ambient" color="#FFF" intensity="0.7"></a-light>
+      <a-light type="directional" position="1 2 3" color="#FFF" intensity="0.6"></a-light>
+
+      <!-- CÂMERA E CURSOR -->
+      <!-- A câmera é o nosso ponto de vista -->
+      <a-camera></a-camera>
+
+      <!-- CURSOR DE DETECÇÃO (HIT-TEST) -->
+      <!-- Este é o anel que vai aparecer no chão. -->
+      <!-- xr-hit-test: É o componente NATIVO do A-Frame para detectar superfícies. Ele é muito mais estável. -->
+      <a-entity 
+        id="hit-test-cursor"
+        xr-hit-test="type: 'ground';">
+        <a-ring rotation="-90 0 0" radius-inner="0.1" radius-outer="0.15" color="cyan"></a-ring>
       </a-entity>
+      
     </a-scene>
+
+    <!-- BOTÃO DE ENTRAR EM AR -->
+    <!-- Este é um botão HTML customizado para iniciar a experiência, o que é uma prática recomendada. -->
+    <div id="enter-ar-button" style="display: none; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); padding: 12px 24px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; z-index: 10;">
+      ENTRAR EM REALIDADE AUMENTADA
+    </div>
+
   </body>
 </html>

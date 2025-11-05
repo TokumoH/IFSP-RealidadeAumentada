@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Protótipo WebXR Final</title>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <!-- Carregamos nosso script de interação -->
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <!-- Adicionamos nosso componente 'tap-to-place' à cena -->
+    <a-scene webxr="optionalFeatures: hit-test;" ar-hit-test="target: #alvo;" tap-to-place>
+      <!-- O Asset Manager pré-carrega nosso modelo 3D -->
+      <a-assets>
+        <a-asset-item id="seta-asset" src="assets/seta.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 1.2 0"></a-camera>
+      <a-light type="ambient" color="#FFF"></a-light>
+      <a-entity id="alvo" scale="0.2 0.2 0.2">
+        <a-ring color="teal" rotation="-90 0 0"></a-ring>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
